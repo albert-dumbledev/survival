@@ -107,3 +107,6 @@ sysinfo.txt
  
 # Crashlytics generated file
 crashlytics-build.properties
+
+# Personal git ignores
+/Demo builds/
