@@ -15,6 +15,8 @@ public class HUDController : MonoBehaviour {
     [SerializeField]
     private GameObject startScreenPanel;
     [SerializeField]
+    private GameObject levelUpScreenPanel;
+    [SerializeField]
     private TextMeshProUGUI finalCodePoints;
     [SerializeField]
     private TextMeshProUGUI charlieMessage;
@@ -54,6 +56,7 @@ public class HUDController : MonoBehaviour {
     }
 
     public void ShowGameOver(int codePoints) {
+        Time.timeScale = 0;
         gameOverPanel.SetActive(true);
         finalCodePoints.text = "" + codePoints;
         if (codePoints < 20) {
@@ -81,5 +84,10 @@ public class HUDController : MonoBehaviour {
             charlieMessage.text = "Uh oh...";
             splashImages[7].gameObject.SetActive(true);
         }
+    }
+
+    public void OpenLevelUp() {
+        Time.timeScale = 0;
+        levelUpScreenPanel.SetActive(true);
     }
 }
