@@ -10,6 +10,8 @@ public class Player : MonoBehaviour {
     private HUDController hud;
     [SerializeField]
     private float moveSpeed;
+    [SerializeField]
+    private int baseDamage;
     private int currentHealth;
     private Rigidbody2D body;
     private Animator anim;
@@ -17,6 +19,8 @@ public class Player : MonoBehaviour {
     private int codePoints;
     public bool isAlive = true;
     public bool isAutoAttacking = false;
+    private int level;
+    private int experienceToNextLevel;
 
     // Start is called before the first frame update
     void Start() {
@@ -26,6 +30,8 @@ public class Player : MonoBehaviour {
         currentHealth = maxHealth;
         hud.UpdateHealth(currentHealth, maxHealth);
         codePoints = 0;
+        experienceToNextLevel = 10;
+        level = 1;
 
         spriteRenderer.color = Color.white;
     }
@@ -62,10 +68,27 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public int calculateDamage() {
+        return baseDamage;
+    }
+
+    public void increaseMaxHealth(int amount) {
+        maxHealth += amount;
+        currentHealth += amount;
+        hud.UpdateHealth(currentHealth, maxHealth);
+    }
+
+    public void increaseDamage(int amount) {
+        baseDamage += amount;
+    }
+
+    public void increaseMoveSpeed(float amount) {
+        moveSpeed += amount;
+    }
+
     IEnumerator EndScreen() {
         yield return new WaitForSeconds(2f);
         hud.ShowGameOver(codePoints);
-        Time.timeScale = 0;
     }
 
     IEnumerator DamageIndicator() {
@@ -83,6 +106,13 @@ public class Player : MonoBehaviour {
         if (other.gameObject.CompareTag("CodePoint")) {
             codePoints += other.gameObject.GetComponent<CodePoint>().value;
             hud.UpdateCodePoints(codePoints);
+
+            if (codePoints >= experienceToNextLevel) {
+                hud.OpenLevelUp();
+                level++;
+                // x = x * y
+                experienceToNextLevel = experienceToNextLevel * level;
+            }
         }
     }
 }

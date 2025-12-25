@@ -48,7 +48,7 @@ public class Weapon : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.CompareTag("Enemy")) {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(player.calculateDamage() + damage);
             StartCoroutine(enemy.KnockBack(player.transform.position, knockbackForce));
         }
     }
