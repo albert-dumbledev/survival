@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// Considering if this should be a parent class and extensions of it should apply certain stats.
 public class UpgradeTile : MonoBehaviour
 {
     [SerializeField]
     private UpgradeType upgradeType;
     [SerializeField]
+    private float magnitude;
+    [SerializeField]
     private string effectText;
+    private int cost;
     [SerializeField]
     private Sprite image;
     [SerializeField]
@@ -20,24 +24,40 @@ public class UpgradeTile : MonoBehaviour
     private GameObject imagePanel;
     [SerializeField]
     private Player player;
+    [SerializeField]
+    private Button upgradeButton;
+    [SerializeField]
+    private GameObject levelUpPanel;
 
     // Start is called before the first frame update
     void Start()
     {
         titleTextbox.text = upgradeType.ToString();
-        effectTextBox.text = effectText;
+        effectTextBox.text = '+' + magnitude.ToString() + " " + effectText;
         imagePanel.GetComponent<Image>().sprite = image;
+        upgradeButton.onClick.AddListener(ApplyUpgrade);
     }
 
-    // Update is called once per frame
-    void Update()   
-    {
-        
+
+    void ApplyUpgrade() {
+        switch (upgradeType) {
+            case UpgradeType.Health:
+                player.increaseMaxHealth(Mathf.RoundToInt(magnitude));
+                break;
+            case UpgradeType.Movespeed:
+                player.increaseMoveSpeed(magnitude);
+                break;
+            case UpgradeType.Damage:
+                player.increaseDamage(Mathf.RoundToInt(magnitude));
+                break;
+        }
+
+        levelUpPanel.SetActive(false);
     }
 
     enum UpgradeType {
         Health,
-        Range,
-        Movespeed
+        Movespeed,
+        Damage,
     }
-}
+}  

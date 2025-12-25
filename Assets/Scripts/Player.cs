@@ -10,6 +10,8 @@ public class Player : MonoBehaviour {
     private HUDController hud;
     [SerializeField]
     private float moveSpeed;
+    [SerializeField]
+    private int baseDamage;
     private int currentHealth;
     private Rigidbody2D body;
     private Animator anim;
@@ -64,6 +66,24 @@ public class Player : MonoBehaviour {
                 this.enabled = false;
             }
         }
+    }
+
+    public int calculateDamage() {
+        return baseDamage;
+    }
+
+    public void increaseMaxHealth(int amount) {
+        maxHealth += amount;
+        currentHealth += amount;
+        hud.UpdateHealth(currentHealth, maxHealth);
+    }
+
+    public void increaseDamage(int amount) {
+        baseDamage += amount;
+    }
+
+    public void increaseMoveSpeed(float amount) {
+        moveSpeed += amount;
     }
 
     IEnumerator EndScreen() {
