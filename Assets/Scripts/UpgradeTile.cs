@@ -27,7 +27,7 @@ public class UpgradeTile : MonoBehaviour
     [SerializeField]
     private Button upgradeButton;
     [SerializeField]
-    private GameObject levelUpPanel;
+    private HUDController hud;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +52,7 @@ public class UpgradeTile : MonoBehaviour
                 break;
         }
 
-        levelUpPanel.SetActive(false);
+        hud.CloseLevelUp();
     }
 
     enum UpgradeType {

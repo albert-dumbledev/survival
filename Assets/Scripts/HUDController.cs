@@ -90,4 +90,9 @@ public class HUDController : MonoBehaviour {
         Time.timeScale = 0;
         levelUpScreenPanel.SetActive(true);
     }
+
+    public void CloseLevelUp() {
+        Time.timeScale = 1;
+        levelUpScreenPanel.SetActive(false);
+    }
 }
