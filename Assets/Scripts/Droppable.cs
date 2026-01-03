@@ -2,22 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CodePoint : MonoBehaviour {
+public class Droppable : MonoBehaviour {
     private const float flashTime = 3f;
     private const float totalTime = 10f;
     private GameObject player;
     private SpriteRenderer spriteRenderer;
+    private bool isGoingToPlayer = false;
+    private float moveSpeed = 2f;
+
     [SerializeField]
     public int value;
+    [SerializeField]
+    public bool canDecay;
+
     void Start() {
         player = GameObject.Find("Charlie");
         spriteRenderer = GetComponent<SpriteRenderer>();
-        StartCoroutine("Decay");
+
+        if (canDecay) {
+            StartCoroutine("Decay");
+        }
     }
 
     void Update() {
         if ((player.transform.position - transform.position).magnitude < 0.5f) {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, 2f * Time.deltaTime);
+            isGoingToPlayer = true;   
+        }
+
+        if (isGoingToPlayer) {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, moveSpeed * Time.deltaTime);
+            moveSpeed += 0.01f;
         }
     }
 
@@ -28,10 +42,12 @@ public class CodePoint : MonoBehaviour {
     }
 
     IEnumerator Decay() {
-        yield return new WaitForSeconds(totalTime - flashTime);
-        StartCoroutine("WarningFlash");
-        yield return new WaitForSeconds(flashTime);
-        Destroy(this.gameObject);
+        if (!isGoingToPlayer) {
+            yield return new WaitForSeconds(totalTime - flashTime);
+            StartCoroutine("WarningFlash");
+            yield return new WaitForSeconds(flashTime);
+            Destroy(this.gameObject);
+        }
     }
 
     IEnumerator WarningFlash() {

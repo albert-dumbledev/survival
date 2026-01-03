@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     protected int damage;
     [SerializeField]
-    private CodePoint loot;
+    private GameObject loot;
     [SerializeField]
     private int points;
     protected Rigidbody2D body;

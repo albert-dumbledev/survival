@@ -104,7 +104,7 @@ public class Player : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.CompareTag("CodePoint")) {
-            codePoints += other.gameObject.GetComponent<CodePoint>().value;
+            codePoints += other.gameObject.GetComponent<Droppable>().value;
             hud.UpdateCodePoints(codePoints);
 
             if (codePoints >= experienceToNextLevel) {
