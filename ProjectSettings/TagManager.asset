@@ -8,6 +8,7 @@ TagManager:
   - Weapon
   - CodePoint
   - Border
+  - HealthDrop
   layers:
   - Default
   - TransparentFX

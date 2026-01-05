@@ -68,6 +68,13 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public void Heal(int amount) {
+        if (isAlive) {
+            currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+            hud.UpdateHealth(currentHealth, maxHealth);
+        }
+    }
+
     public int calculateDamage() {
         return baseDamage;
     }
@@ -103,16 +110,19 @@ public class Player : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.CompareTag("CodePoint")) {
-            codePoints += other.gameObject.GetComponent<CodePoint>().value;
-            hud.UpdateCodePoints(codePoints);
-
-            if (codePoints >= experienceToNextLevel) {
-                hud.OpenLevelUp();
-                level++;
-                // x = x * y
-                experienceToNextLevel = experienceToNextLevel * level;
-            }
+        switch (other.gameObject.tag) {
+            case "CodePoint":
+                codePoints += other.gameObject.GetComponent<Droppable>().value;
+                hud.UpdateCodePoints(codePoints);
+                if (codePoints >= experienceToNextLevel) {
+                    hud.OpenLevelUp();
+                    level++;
+                    experienceToNextLevel = experienceToNextLevel * level;
+                }
+                break;
+            case "HealthDrop":
+                Heal(other.gameObject.GetComponent<Droppable>().value);
+                break;
         }
     }
 }

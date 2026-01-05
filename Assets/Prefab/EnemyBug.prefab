@@ -148,7 +148,13 @@ MonoBehaviour:
   maxHealth: 1
   moveSpeed: 0.8
   damage: 1
-  loot: {fileID: 3136535893195578291, guid: 4b8ded16944ba854facebd269b3f75ba, type: 3}
+  lootTable:
+  - dropPercentage: 100
+    dropAmount: 1
+    dropabble: {fileID: 3136535893195578292, guid: 4b8ded16944ba854facebd269b3f75ba, type: 3}
+  - dropPercentage: 30
+    dropAmount: 1
+    dropabble: {fileID: 3136535893195578292, guid: 4b8ded16944ba854facebd269b3f75ba, type: 3}
   points: 1
 --- !u!95 &8914662870526758449
 Animator:

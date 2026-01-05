@@ -167,5 +167,20 @@ MonoBehaviour:
   maxHealth: 2
   moveSpeed: 0.8
   damage: 1
-  loot: {fileID: 3136535893195578291, guid: c48d30a4a1934d448ace27f6cab5b829, type: 3}
+  lootTable:
+  - dropPercentage: 100
+    dropAmount: 1
+    dropabble: {fileID: 3136535893195578292, guid: c48d30a4a1934d448ace27f6cab5b829, type: 3}
+  - dropPercentage: 80
+    dropAmount: 1
+    dropabble: {fileID: 3136535893195578292, guid: 4b8ded16944ba854facebd269b3f75ba, type: 3}
+  - dropPercentage: 80
+    dropAmount: 1
+    dropabble: {fileID: 3136535893195578292, guid: 4b8ded16944ba854facebd269b3f75ba, type: 3}
+  - dropPercentage: 80
+    dropAmount: 1
+    dropabble: {fileID: 3136535893195578292, guid: 4b8ded16944ba854facebd269b3f75ba, type: 3}
+  - dropPercentage: 10
+    dropAmount: 1
+    dropabble: {fileID: 6562773106127562166, guid: 71b1f69a265c9374985fbba9fbce52b4, type: 3}
   points: 2
