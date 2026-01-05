@@ -13,9 +13,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     protected int damage;
     [SerializeField]
-    private GameObject loot;
-    [SerializeField]
-    private int points;
+    private Loot[] lootTable; 
     protected Rigidbody2D body;
     protected Collider2D col;
     protected Animator anim;
@@ -49,9 +47,11 @@ public class Enemy : MonoBehaviour {
         } else {
             currentHealth = 0;
             anim.SetTrigger("IsDead");
-            for (int i = 0; i < points; i++) {
-                float jitter = Random.Range(-0.2f, 0.2f);
-                Instantiate(loot, new Vector2(transform.position.x + jitter, transform.position.y + jitter), Quaternion.identity);
+            foreach (Loot loot in lootTable) {
+                if (Random.Range(0, 100) <= loot.dropPercentage) {
+                    float jitter = Random.Range(-0.2f, 0.2f);
+                    Instantiate(loot.dropabble, new Vector2(transform.position.x + jitter, transform.position.y + jitter), Quaternion.identity);
+                }
             }
             StartCoroutine("Die");
         }
